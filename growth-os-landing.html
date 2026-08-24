@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Growth OS — Tarjetas NFC y soluciones digitales personalizadas para negocios.">
+  <title>Growth OS — Tu negocio, a un toque de distancia</title>
+  <style>
+    :root{
+      --bg:#07090d; --panel:#0d1118; --panel2:#111722; --text:#f5f7fb;
+      --muted:#9ba5b5; --line:rgba(255,255,255,.09); --accent:#8cff5a;
+      --accent2:#43d9ff; --shadow:0 25px 80px rgba(0,0,0,.45);
+      --radius:24px; --max:1160px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      background:
+        radial-gradient(circle at 15% 0%,rgba(140,255,90,.12),transparent 30rem),
+        radial-gradient(circle at 85% 15%,rgba(67,217,255,.10),transparent 28rem),
+        var(--bg);
+      color:var(--text); line-height:1.5; overflow-x:hidden;
+    }
+    a{text-decoration:none;color:inherit}
+    .container{width:min(calc(100% - 40px),var(--max));margin:auto}
+    .nav{
+      position:sticky;top:0;z-index:20;background:rgba(7,9,13,.72);
+      backdrop-filter:blur(18px);border-bottom:1px solid var(--line)
+    }
+    .nav-inner{height:76px;display:flex;align-items:center;justify-content:space-between}
+    .logo{font-weight:900;letter-spacing:-.06em;font-size:23px}
+    .logo span{color:var(--accent)}
+    .nav-links{display:flex;gap:28px;color:#cbd2dd;font-size:14px}
+    .nav-links a:hover{color:var(--accent)}
+    .nav-cta,.btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:9px;
+      border-radius:999px;font-weight:800;transition:.2s ease;cursor:pointer
+    }
+    .nav-cta{padding:11px 18px;background:var(--text);color:#080a0d;font-size:13px}
+    .nav-cta:hover,.btn:hover{transform:translateY(-2px)}
+    .hero{padding:100px 0 80px;position:relative}
+    .hero-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:60px;align-items:center}
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);
+      background:rgba(255,255,255,.035);padding:8px 12px;border-radius:999px;
+      color:#d7deea;font-size:12px;font-weight:800;margin-bottom:22px
+    }
+    .dot{width:7px;height:7px;background:var(--accent);border-radius:50%;box-shadow:0 0 15px var(--accent)}
+    h1{font-size:clamp(48px,6.5vw,82px);line-height:.96;letter-spacing:-.075em;max-width:760px}
+    .gradient{background:linear-gradient(100deg,var(--accent),#c7ffb2 48%,var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+    .hero-copy{color:var(--muted);font-size:19px;max-width:590px;margin:25px 0 32px}
+    .actions{display:flex;gap:12px;flex-wrap:wrap}
+    .btn{padding:15px 22px;font-size:14px}
+    .btn-primary{background:var(--accent);color:#071006;box-shadow:0 12px 35px rgba(140,255,90,.18)}
+    .btn-secondary{border:1px solid var(--line);background:rgba(255,255,255,.035);color:var(--text)}
+    .trust{display:flex;gap:22px;margin-top:35px;color:#737d8e;font-size:12px}
+    .trust strong{color:#cbd2dd;display:block;font-size:14px}
+    .card-stage{position:relative;min-height:490px;display:grid;place-items:center}
+    .glow{position:absolute;width:390px;height:390px;border-radius:50%;background:var(--accent);filter:blur(100px);opacity:.11}
+    .nfc-card{
+      position:relative;width:min(410px,90vw);aspect-ratio:1.62/1;border-radius:28px;padding:28px;
+      background:linear-gradient(135deg,#202a36,#0d1219 62%,#111b15);
+      border:1px solid rgba(255,255,255,.18);box-shadow:var(--shadow);
+      transform:rotate(-7deg);overflow:hidden
+    }
+    .nfc-card:before{content:"";position:absolute;inset:-50%;background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.08),transparent 48%);transform:rotate(8deg)}
+    .chip{width:45px;height:34px;border:1px solid rgba(255,255,255,.35);border-radius:8px;background:linear-gradient(135deg,#d6c994,#6e6542);margin-bottom:70px}
+    .card-brand{font-weight:900;font-size:29px;letter-spacing:-.06em}
+    .card-brand span{color:var(--accent)}
+    .card-sub{color:#aab3c0;font-size:11px;margin-top:4px}
+    .tap{position:absolute;right:25px;top:27px;font-size:30px;transform:rotate(0)}
+    .floating{
+      position:absolute;background:rgba(16,21,29,.88);border:1px solid var(--line);backdrop-filter:blur(15px);
+      border-radius:18px;padding:14px 16px;box-shadow:var(--shadow);font-size:12px
+    }
+    .floating b{display:block;font-size:15px;margin-bottom:2px}
+    .f1{right:0;top:55px}.f2{left:0;bottom:72px}.f3{right:32px;bottom:5px}
+    section{padding:95px 0}
+    .section-head{display:flex;justify-content:space-between;gap:30px;align-items:end;margin-bottom:40px}
+    .kicker{color:var(--accent);font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.16em;margin-bottom:10px}
+    h2{font-size:clamp(34px,4vw,54px);line-height:1;letter-spacing:-.06em}
+    .section-head p{max-width:420px;color:var(--muted)}
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .step,.product,.feature,.audience{border:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.018));border-radius:var(--radius);padding:28px}
+    .num{font-size:12px;color:var(--accent);font-weight:900;margin-bottom:45px}
+    .step h3,.product h3{font-size:22px;letter-spacing:-.03em;margin-bottom:8px}
+    .muted{color:var(--muted)}
+    .products{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .product{min-height:240px;position:relative;overflow:hidden}
+    .icon{font-size:28px;margin-bottom:40px}
+    .product p{color:var(--muted);font-size:14px}
+    .product.featured{background:linear-gradient(145deg,rgba(140,255,90,.12),rgba(255,255,255,.025));border-color:rgba(140,255,90,.25)}
+    .tag{position:absolute;right:18px;top:18px;color:#0b1209;background:var(--accent);font-size:10px;font-weight:900;padding:6px 9px;border-radius:999px}
+    .split{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:stretch}
+    .big-panel{padding:45px;border-radius:32px;border:1px solid var(--line);background:linear-gradient(145deg,#111822,#0b0f15)}
+    .big-panel h2{max-width:500px}
+    .big-panel p{color:var(--muted);max-width:540px;margin:20px 0 30px}
+    .features{display:grid;gap:12px}
+    .feature{display:flex;gap:15px;padding:20px}
+    .feature-icon{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;background:rgba(140,255,90,.1);flex:none}
+    .feature h3{font-size:15px;margin-bottom:3px}
+    .feature p{font-size:13px;color:var(--muted)}
+    .audiences{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+    .audience{padding:22px;text-align:center;font-weight:800;font-size:14px}
+    .cta{
+      text-align:center;padding:80px 30px;border:1px solid rgba(140,255,90,.18);
+      border-radius:34px;background:radial-gradient(circle at 50% 0%,rgba(140,255,90,.12),transparent 55%),#0b1016
+    }
+    .cta p{color:var(--muted);max-width:580px;margin:18px auto 28px}
+    footer{padding:35px 0 50px;border-top:1px solid var(--line);color:#778091;font-size:12px}
+    .footer-inner{display:flex;justify-content:space-between;gap:20px}
+    @media(max-width:850px){
+      .nav-links{display:none}.hero-grid,.split{grid-template-columns:1fr}.hero{padding-top:70px}
+      .card-stage{min-height:420px}.steps,.products{grid-template-columns:1fr 1fr}.audiences{grid-template-columns:1fr 1fr}
+      .section-head{display:block}.section-head p{margin-top:15px}
+    }
+    @media(max-width:560px){
+      .container{width:min(calc(100% - 28px),var(--max))}
+      h1{font-size:50px}.hero-copy{font-size:17px}.steps,.products{grid-template-columns:1fr}
+      .audiences{grid-template-columns:1fr 1fr}.nfc-card{width:92vw}.f1{right:-4px}.f2{left:-4px}
+      section{padding:70px 0}.big-panel{padding:30px}.footer-inner{display:block}
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a class="logo" href="#">growth<span>OS</span></a>
+      <div class="nav-links">
+        <a href="#soluciones">Soluciones</a>
+        <a href="#como-funciona">Cómo funciona</a>
+        <a href="#personalizacion">Personalización</a>
+      </div>
+      <a class="nav-cta" href="#contacto">Quiero mi Growth OS →</a>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow"><span class="dot"></span> Tecnología simple para negocios que quieren crecer</div>
+          <h1>Tu negocio.<br><span class="gradient">A un toque.</span></h1>
+          <p class="hero-copy">Tarjetas NFC y soluciones digitales personalizadas para que tus clientes puedan encontrarte, contactarte, seguirte y recomendarte en segundos.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="#contacto">Quiero mi tarjeta ↗</a>
+            <a class="btn btn-secondary" href="#soluciones">Ver soluciones</a>
+          </div>
+          <div class="trust">
+            <div><strong>NFC + QR</strong>Dos formas de conectar</div>
+            <div><strong>100% personalizado</strong>Diseño de tu negocio</div>
+          </div>
+        </div>
+
+        <div class="card-stage">
+          <div class="glow"></div>
+          <div class="floating f1"><b>⭐ + reseñas</b>Haz más fácil que te recomienden</div>
+          <div class="floating f2"><b>📲 Un toque</b>Todo en un solo lugar</div>
+          <div class="floating f3"><b>QR incluido</b>Funciona con cualquier teléfono</div>
+          <div class="nfc-card">
+            <div class="tap">)))</div>
+            <div class="chip"></div>
+            <div class="card-brand">growth<span>OS</span></div>
+            <div class="card-sub">DIGITAL BUSINESS CARD</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="como-funciona">
+      <div class="container">
+        <div class="section-head">
+          <div><div class="kicker">Así de fácil</div><h2>Conecta en segundos.</h2></div>
+          <p>Una experiencia sencilla para ti y todavía más sencilla para tus clientes.</p>
+        </div>
+        <div class="steps">
+          <div class="step"><div class="num">01 — ACERCA</div><h3>Acerca tu tarjeta</h3><p class="muted">Tu cliente acerca su teléfono a tu tarjeta NFC.</p></div>
+          <div class="step"><div class="num">02 — ABRE</div><h3>Abre tu perfil</h3><p class="muted">También puede escanear el QR. No necesita instalar una app.</p></div>
+          <div class="step"><div class="num">03 — CONECTA</div><h3>Haz que pase algo</h3><p class="muted">Reseña, WhatsApp, redes, pagos, web o la acción que tú elijas.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="soluciones">
+      <div class="container">
+        <div class="section-head">
+          <div><div class="kicker">Soluciones</div><h2>Una tarjeta.<br>Muchas posibilidades.</h2></div>
+          <p>Elige la experiencia digital que mejor se adapte a tu negocio. Puedes empezar simple y crecer después.</p>
+        </div>
+        <div class="products">
+          <div class="product featured"><span class="tag">POPULAR</span><div class="icon">⭐</div><h3>Google Reviews</h3><p>Envía a tus clientes directo a dejar una reseña de Google y facilita que compartan su experiencia.</p></div>
+          <div class="product"><div class="icon">💳</div><h3>Datos bancarios</h3><p>Comparte tus datos de pago de forma rápida, limpia y profesional.</p></div>
+          <div class="product"><div class="icon">📱</div><h3>Redes sociales</h3><p>Instagram, Facebook, TikTok, WhatsApp y tus demás canales en un solo lugar.</p></div>
+          <div class="product"><div class="icon">🌐</div><h3>Landing Page</h3><p>Una página enfocada en presentar tu negocio y convertir visitas en clientes.</p></div>
+          <div class="product"><div class="icon">🖥️</div><h3>Página Web</h3><p>Una presencia digital completa para negocios que quieren dar el siguiente paso.</p></div>
+          <div class="product"><div class="icon">✨</div><h3>Solución a medida</h3><p>¿Necesitas algo diferente? Diseñamos la experiencia digital alrededor de tu negocio.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="personalizacion">
+      <div class="container split">
+        <div class="big-panel">
+          <div class="kicker">Hecha para ti</div>
+          <h2>Tu negocio no debería verse como todos los demás.</h2>
+          <p>Personalizamos la tarjeta para que refleje la identidad de tu marca: logo, colores, estilo y diseño.</p>
+          <a class="btn btn-primary" href="#contacto">Diseñar mi tarjeta ↗</a>
+        </div>
+        <div class="features">
+          <div class="feature"><div class="feature-icon">🎨</div><div><h3>Diseño personalizado</h3><p>Tu identidad visual llevada a la tarjeta.</p></div></div>
+          <div class="feature"><div class="feature-icon">📡</div><div><h3>NFC + QR</h3><p>Dos maneras de acceder a tu información.</p></div></div>
+          <div class="feature"><div class="feature-icon">⚡</div><div><h3>Experiencia rápida</h3><p>Menos pasos entre el cliente y tu negocio.</p></div></div>
+          <div class="feature"><div class="feature-icon">🔄</div><div><h3>Contenido actualizable</h3><p>Tu presencia digital puede evolucionar contigo.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-head">
+          <div><div class="kicker">Para negocios reales</div><h2>Hecho para conectar.</h2></div>
+          <p>Desde un emprendedor hasta un negocio con equipo y varias sucursales.</p>
+        </div>
+        <div class="audiences">
+          <div class="audience">☕ Cafeterías</div>
+          <div class="audience">💈 Barberías</div>
+          <div class="audience">🍽️ Restaurantes</div>
+          <div class="audience">🏠 Inmobiliarias</div>
+          <div class="audience">🛍️ Tiendas</div>
+          <div class="audience">💼 Profesionales</div>
+          <div class="audience">🏨 Hoteles</div>
+          <div class="audience">🚀 Emprendedores</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contacto">
+      <div class="container">
+        <div class="cta">
+          <div class="kicker">Empieza con Growth OS</div>
+          <h2>Haz que sea más fácil<br><span class="gradient">conectar contigo.</span></h2>
+          <p>Cuéntanos qué necesita tu negocio y creamos una tarjeta NFC personalizada con la solución digital que mejor te funcione.</p>
+          <div class="actions" style="justify-content:center">
+            <a class="btn btn-primary" href="https://wa.me/5210000000000?text=Hola%20Growth%20OS%2C%20quiero%20mi%20tarjeta%20NFC." target="_blank">Hablar por WhatsApp ↗</a>
+            <a class="btn btn-secondary" href="mailto:hola@growthos.mx">Enviar correo</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div><strong style="color:#fff">growthOS</strong> — Tecnología simple para negocios.</div>
+      <div>© 2026 Growth OS. Todos los derechos reservados.</div>
+    </div>
+  </footer>
+</body>
+</html>
